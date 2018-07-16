@@ -1,18 +1,51 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 
-
-import { AppComponent } from './app.component';
-
+import { routes } from './app.routing';
+import { AppComponent } from './app.component/app.component';
+import { AppMainPageComponent } from './mainpage/app.mainpage.component';
+import { CreateDataComponent } from './add-date-money/create-data/create-data.component';
+import { UpdateDataComponent } from './add-date-money/update-data/update-data.component';
+import { AddDateMoneyComponent } from './add-date-money/add-date-money.component';
+import { AppLinksService } from './services/app.links.service';
+import { AllocateDataComponent } from './allocate-data/allocate-data.component';
+import { DailyWasteComponent } from './daily-waste/daily-waste.component';
+import { FoodWasteComponent } from './daily-waste/food-waste/food-waste.component';
+import { CommunalWasteComponent } from './daily-waste/communal-waste/communal-waste.component';
+import { TransportWasteComponent } from './daily-waste/transport-waste/transport-waste.component';
+import { OtherWasteComponent } from './daily-waste/other-waste/other-waste.component';
+import { NotFoundComponent } from './not.found.component/not.found.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AppMainPageComponent,
+    CreateDataComponent,
+    UpdateDataComponent,
+    AddDateMoneyComponent,
+    AllocateDataComponent,
+    DailyWasteComponent,
+    FoodWasteComponent,
+    CommunalWasteComponent,
+    TransportWasteComponent,
+    OtherWasteComponent,
+    NotFoundComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+    TooltipModule.forRoot(),
+    ReactiveFormsModule,
+    NgBootstrapFormValidationModule.forRoot()
   ],
-  providers: [],
+  providers: [ AppLinksService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
