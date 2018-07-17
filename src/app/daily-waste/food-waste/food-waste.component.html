@@ -1,1 +1,13 @@
-<h1>FOOD</h1>
+
+<div class="card" style="max-width: 50rem; width: 1000px; height: 500px; margin: 0 auto">
+  <div class="card-header" style="text-align: center"><h2>Еда</h2></div>
+  <div class="card-border">
+    <form [formGroup]="formGroup" (validSubmit)="onSubmit1()">
+      <div class="form-group">
+        <label class="control-label" for="fooddata"></label>
+        <input class="form-control" formControlName="foodData" id="fooddata" name="fooddata" type="number" placeholder="Сколько вы потратили за сегодня?">
+      </div>
+      <button class="btn btn-primary" type="submit">Подтвердить</button>
+    </form>
+  </div>
+</div>
