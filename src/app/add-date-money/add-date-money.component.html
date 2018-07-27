@@ -1,8 +1,8 @@
 <h1 style="text-align: center">Здесь вы можете ввести/обновить дату начала отсчета и значение исходной суммы</h1>
-<div class="AddDateMoneyComponent">
-  <nav *ngIf="nav.visible">
-    <button type="button" class="btn btn-outline-primary btn-lg" [routerLink]="['./add']">Add data</button>
-    <button type="button" class="btn btn-outline-primary btn-lg" [routerLink]="['./update']">Update data</button>
+<div class="AddDateMoneyComponent" *ngIf="router.url === '/add-date-money'">
+  <nav>
+    <button type="button" class="btn btn-outline-primary btn-lg" [routerLink]="['./add']"><a class="h1">Add data</a></button>
+    <button type="button" class="btn btn-outline-primary btn-lg" [routerLink]="['./update']"><a class="h1">Update data</a></button>
   </nav>
 </div>
 <router-outlet></router-outlet>

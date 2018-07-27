@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppLinksService } from '../services/app.links.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-date-money',
@@ -8,7 +8,7 @@ import { AppLinksService } from '../services/app.links.service';
 })
 export class AddDateMoneyComponent implements OnInit {
 
-  constructor(public nav: AppLinksService) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 

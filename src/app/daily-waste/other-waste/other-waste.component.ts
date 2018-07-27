@@ -10,7 +10,7 @@ export class OtherWasteComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
