@@ -8,6 +8,8 @@ import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 
 import { AppSetInitialDataService } from './services/app.set_initial_data.service';
 import { AppTransferDataService } from './services/app.transfer-data.service';
+import { AppDistributionDataService } from './services/app.distribution_data.service';
+import { AppDailyWasteService } from './services/app.daily-waste.service';
 
 import { routes } from './app.routing';
 import { AppComponent } from './app.component/app.component';
@@ -22,7 +24,6 @@ import { CommunalWasteComponent } from './daily-waste/communal-waste/communal-wa
 import { TransportWasteComponent } from './daily-waste/transport-waste/transport-waste.component';
 import { OtherWasteComponent } from './daily-waste/other-waste/other-waste.component';
 import { NotFoundComponent } from './not.found.component/not.found.component';
-import { AppDistributionDataService } from './services/app.distribution_data.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AppDistributionDataService } from './services/app.distribution_data.ser
     [
       AppSetInitialDataService,
       AppTransferDataService,
-      AppDistributionDataService
+      AppDistributionDataService,
+      AppDailyWasteService
     ],
   bootstrap: [ AppComponent ]
 })

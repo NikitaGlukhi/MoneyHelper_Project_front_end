@@ -27,4 +27,94 @@ export class AppDistributionDataService {
     )
   }
 
+  getDistributedFoodData() {
+    return this.http.get('/initial-data/get-distributed-food-data').pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addDailyWasteFoodChanges(data: {
+    all_upd_food_amount: number,
+    all_upd_daily_waste: number,
+    all_upd_total_waste: number,
+    all_upd_remainder: number
+  }): Observable<any> {
+    return this.http.put('/initial-data/add-daily-waste-food-upd', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addFoodAmount(data: {all_food_amount: number, all_remainder: number}): Observable<any> {
+    return this.http.put('/initial-data/add-food-daily-waste-data', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addCommunalAmount(data: {all_communal_amount: number, all_communal_remainder: number}): Observable<any> {
+    return this.http.put('/initial-data/add-communal-daily-waste-data', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addDailyWasteCommunalChanges(data: {
+    all_upd_communal_amount: number,
+    all_upd_communal_daily_waste: number,
+    all_upd_communal_total_waste: number,
+    all_upd_communal_remainder: number}): Observable<any> {
+    return this.http.put('/initial-data/add-communal-daily-waste-data-upd', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getDistributedCommunalData() {
+    return this.http.get('/initial-data/get-distributed-communal-data').pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addTransportAmount(data: {all_transport_amount: number, all_transport_remainder: number}): Observable<any> {
+    return this.http.put('/initial-data/add-daily-waste-transport-data', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addDailyWasteTransportData(data: {
+    all_upd_transport_amount: number,
+    all_upd_transport_daily_waste: number,
+    all_upd_transport_total_waste: number,
+    all_upd_transport_remainder: number
+  }): Observable<any> {
+    return this.http.put('/initial-data/add-daily-waste-transport-data-upd', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getDistributedTransportData(): Observable<any> {
+    return this.http.get('/initial-data/get-distributed-transport-data').pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addOtherAmount(data: {all_other_amount: number, all_other_reminder: number}): Observable<any> {
+    return this.http.put('/initial-data/add-daily-waste-other-data', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addDailyWasteOtherData(data: {
+    all_upd_other_amount: number,
+    all_upd_other_daily_waste: number,
+    all_upd_other_total_waste: number,
+    all_upd_other_remainder: number
+  }): Observable<any> {
+    return this.http.put('/initial-data/add-daily-waste-other-data-upd', data).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getDistributedOtherData(): Observable<any> {
+    return this.http.get('/initial-data/get-distributed-other-data').pipe(
+      catchError(this.handleError)
+    )
+  }
 }

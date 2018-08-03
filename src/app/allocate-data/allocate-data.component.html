@@ -18,10 +18,10 @@
        <label class="control-label" for="transport">Транспорт: </label>
        <input id="transport" name="transport" type="number" class="form-control form-control-lg" [(ngModel)]="transport" [ngModelOptions]="{standalone: true}" placeholder="Транспорт(грн)" ngDefaultControl>
      </div>
-<!--     <div class="form-group" [(ngModel)]="other" [ngModelOptions]="{standalone: true}" ngDefaultControl>
+    <div class="form-group" [(ngModel)]="other" [ngModelOptions]="{standalone: true}" ngDefaultControl>
        <h6>Прочее: </h6>
        <h6>{{other}}</h6>
-     </div>-->
+     </div>
      <button class="btn btn-default btn-lg" (click)="onReset()">Сбросить</button>
      <button class="btn btn-primary pull-right btn-lg" type="submit">Подтвердить</button>
    </form>
