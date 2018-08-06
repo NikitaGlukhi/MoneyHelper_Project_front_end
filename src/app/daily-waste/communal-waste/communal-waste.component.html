@@ -1,1 +1,15 @@
-<h1>COMMUNAL</h1>
+<div class="card" style="max-width: 50rem; width: 1000px; height: 500px; margin: 0 auto">
+  <div class="card-header" style="text-align: center"><h2>Бытовуха</h2></div>
+  <div class="card-border">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="control-label" for="communaldata"></label>
+        <input class="form-control form-control-lg" id="communaldata" [(ngModel)]="daily_waste" name="communaldata" type="number" placeholder="Сколько вы потратили за сегодня?">
+      </div>
+      <h2>В наличии: {{ communal_amount }} грн.</h2>
+      <h2>Всего потрачено: {{ total_waste }} грн.</h2>
+      <h2>Остаток: {{ remainder }} грн.</h2>
+      <button class="btn btn-primary" type="submit">Подтвердить</button>
+    </form>
+  </div>
+</div>

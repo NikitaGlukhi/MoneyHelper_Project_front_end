@@ -1,17 +1,24 @@
 <h1 style="text-align: center">Well come!</h1>
-<div class="progress">
-  <div class="progress-bar bg-success bg-lg" role="progressbar" id="food" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+<h3>Еда:</h3>
+<div class="progress" style="height: 50px">
+  <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" id="food" [attr.aria-valuenow]="percentData" style="min-width: 0" [style.width]="percentData + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><h3>{{percentData}}%</h3></div>
 </div>
 <br>
-<div class="progress">
-  <div class="progress-bar bg-info bg-lg" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+<h6>&nbsp;</h6>
+<h3>Бытовуха:</h3>
+<div class="progress" style="height: 50px">
+  <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated" role="progressbar" id="communal" [attr.aria-valuenow]="communal_percentData" style="min-width: 0" [style.width]="communal_percentData + '%'"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><h3>{{communal_percentData}}%</h3></div>
 </div>
 <br>
-<div class="progress">
-  <div class="progress-bar bg-warning bg-lg" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+<h6>&nbsp;</h6>
+<h3>Транспорт:</h3>
+<div class="progress" style="height: 50px">
+  <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" id="transport" [attr.aria-valuenow]="transport_percentData" style="min-width: 0" [style.width]="transport_percentData + '%'"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><h3>{{transport_percentData}}%</h3></div>
 </div>
 <br>
-<div class="progress">
-  <div class="progress-bar bg-danger bg-lg" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+<h6>&nbsp;</h6>
+<h3>Прочее:</h3>
+<div class="progress" style="height: 50px">
+  <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" id="other" [attr.aria-valuenow]="other_percentData" style="min-width: 0"  [style.width]="other_percentData + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><h3>{{other_percentData}}%</h3></div>
 </div>
 <br>

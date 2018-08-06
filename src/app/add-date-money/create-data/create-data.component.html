@@ -4,14 +4,14 @@
     <form [formGroup]="formGroup" (validSubmit)="onSubmit()">
       <div class="form-group">
         <label class="control-label">Дата</label>
-        <input type="date" class="form-control input-lg" formControlName="Date">
+        <input type="date" class="form-control input-lg" [(ngModel)]="date" name="date" formControlName="Date" required>
       </div>
       <div class="form-group">
         <label class="control-label">Сумма</label>
-        <input type="number" class="form-control input-lg" formControlName="Money">
+        <input type="number" class="form-control input-lg" [(ngModel)]="amount" name="amount" formControlName="Money" value="20000" placeholder="Введите исходную сумму(грн)" required>
       </div>
       <button class="btn btn-default btn-lg" type="button" (click)="onReset()">Reset</button>
-      <button class="btn btn-primary pull-right btn-lg" type="submit" (click)="updateData()">Подтвердить</button>
+      <button class="btn btn-primary pull-right btn-lg" type="submit">Подтвердить</button>
     </form>
   </div>
 </div>

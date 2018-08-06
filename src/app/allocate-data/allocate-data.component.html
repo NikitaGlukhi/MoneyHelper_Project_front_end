@@ -1,20 +1,29 @@
-<form [formGroup]="formGroup" (validSubmit)="onSubmit()">
-  <div class="form-group">
-    <label class="control-label" for="food">Еда: </label>
-    <input class="form-control" formControlName="Food" id="food" name="food" type="number" placeholder="Еда(грн)">
+<h1>&nbsp;</h1>
+<div class="card" style="max-width: 50rem; width: 1000px; height: 500px; margin: 0 auto">
+  <div class="card-header" style="text-align: center">
+    <h2>Распределение суммы по категориям</h2>
+    <h3>Исходная сумма: {{amount}} грн</h3>
   </div>
-  <div class="for-group">
-    <label class="control-label" for="communal">Бытовуха: </label>
-    <input class="form-control" formControlName="Communal" id="communal" name="communal" type="number" placeholder="Бытовуха(грн)">
+  <div class="card-body">
+   <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onCalculate()" novalidate>
+     <div class="form-group">
+       <label class="control-label" for="food">Еда: </label>
+       <input id="food" name="food" type="number" class="form-control form-control-lg" [(ngModel)]="food" [ngModelOptions]="{standalone: true}" placeholder="Еда(грн)" ngDefaultControl>
+     </div>
+     <div class="form-group">
+       <label class="control-label" for="communal">Бытовуха: </label>
+       <input id="communal" name="communal" type="number" class="form-control form-control-lg" [(ngModel)]="communal" [ngModelOptions]="{standalone: true}" placeholder="Бытовуха(грн)" ngDefaultControl>
+     </div>
+     <div class="form-group">
+       <label class="control-label" for="transport">Транспорт: </label>
+       <input id="transport" name="transport" type="number" class="form-control form-control-lg" [(ngModel)]="transport" [ngModelOptions]="{standalone: true}" placeholder="Транспорт(грн)" ngDefaultControl>
+     </div>
+    <div class="form-group" [(ngModel)]="other" [ngModelOptions]="{standalone: true}" ngDefaultControl>
+       <h6>Прочее: </h6>
+       <h6>{{other}}</h6>
+     </div>
+     <button class="btn btn-default btn-lg" (click)="onReset()">Сбросить</button>
+     <button class="btn btn-primary pull-right btn-lg" type="submit">Подтвердить</button>
+   </form>
   </div>
-  <div class="form-group">
-    <label class="control-label" for="transport">Транспорт: </label>
-    <input class="form-control" formControlName="Transport" id="transport" name="transport" type="number" placeholder="Транспорт(грн)">
-  </div>
-  <div class="form-group">
-    <label class="control-label" for="other">Прочее: </label>
-    <input class="form-control" id="other" name="other" type="number" placeholder="Прочее(грн)" value="218" [disabled]="true">
-  </div>
-  <button class="btn btn-default btn-lg" (click)="onReset()">Сбросить</button>
-  <button class="btn btn-primary pull-right btn-lg" type="submit">Подтвердить</button>
-</form>
+</div>
