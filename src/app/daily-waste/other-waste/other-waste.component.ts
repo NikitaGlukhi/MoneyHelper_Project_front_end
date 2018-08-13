@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppDistributionDataService } from '../../services/app.distribution_data.service';
+import { FormGroup } from '@angular/forms';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-other-waste',
@@ -9,12 +11,25 @@ import { AppDistributionDataService } from '../../services/app.distribution_data
 })
 export class OtherWasteComponent implements OnInit {
 
+  form = new FormGroup({});
+  model = { daily_waste: null };
   other_amount: number;
-  daily_waste: number;
   total_waste: number;
   upd_total_waste: number;
   remainder: number;
   upd_remainder: number;
+  fields: FormlyFieldConfig[] = [
+    {
+      key: 'daily_waste',
+      type: 'input',
+      templateOptions: {
+        type: 'number',
+        label: 'Введите сумму',
+        placeholder: 'Сколько вы потратили за сегодня?',
+        required: true
+      }
+    }
+    ]
 
   constructor(private router: Router, private route: ActivatedRoute, private dis: AppDistributionDataService) {  }
 
@@ -31,11 +46,11 @@ export class OtherWasteComponent implements OnInit {
   }
 
   onSubmit() {
-    this.upd_total_waste = this.total_waste + this.daily_waste;
-    this.upd_remainder = this.remainder - this.daily_waste;
+    this.upd_total_waste = this.total_waste + this.model.daily_waste;
+    this.upd_remainder = this.remainder - this.model.daily_waste;
     this.dis.addDailyWasteOtherData({
       all_upd_other_amount: this.other_amount,
-      all_upd_other_daily_waste: this.daily_waste,
+      all_upd_other_daily_waste: this.model.daily_waste,
       all_upd_other_total_waste: this.upd_total_waste,
       all_upd_other_remainder: this.upd_remainder}).subscribe(res => {
       alert('Успех!');

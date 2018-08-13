@@ -10,7 +10,7 @@ describe('AllocateDataComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AllocateDataComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
