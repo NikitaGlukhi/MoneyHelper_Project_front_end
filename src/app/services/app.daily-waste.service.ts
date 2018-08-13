@@ -8,10 +8,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AppDailyWasteService {
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) {
+  }
 
   private handleError(error: HttpErrorResponse) {
-    if(error.error instanceof ErrorEvent) {
+    if (error.error instanceof ErrorEvent) {
       console.error('An error occurred: ', error.error.message)
     } else {
       console.error(
@@ -21,8 +22,26 @@ export class AppDailyWasteService {
     return new ErrorObservable('Something bad happened; please try again later.');
   }
 
-  getUseId(): Observable<any> {
-    return this.http.get('/initial-data/get-used-id').pipe(
+  getDailyWasteFoodData(): Observable<any> {
+    return this.http.get('/initial-data/get-daily-waste-food').pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getDailyWasteCommunalData(): Observable<any> {
+    return this.http.get('/initial-data/get-daily-waste-communal').pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getDailyWasteTrasportData(): Observable<any> {
+    return this.http.get('/initial-data/get-daily-waste-transport').pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getDailyWasteOtherData(): Observable<any> {
+    return this.http.get('/initial-data/get-daily-waste-other').pipe(
       catchError(this.handleError)
     )
   }

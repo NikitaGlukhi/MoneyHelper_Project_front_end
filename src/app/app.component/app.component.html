@@ -4,16 +4,16 @@
     <div class="navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link h4" routerLink="main-page">Главная</a>
+          <a class="nav-link h4" routerLink="main-page" routerLinkActive="active">Главная</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link h4" routerLink="add-date-money">Задать дату/сумму</a>
+          <a class="nav-link h4" routerLink="add-date-money" routerLinkActive="active">Задать дату/сумму</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link h4" routerLink="allocate-data">Распределить средства</a>
+          <a class="nav-link h4" [routerLink]="['./allocate-data/standard']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Распределить средства</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link h4" [routerLink]="['./daily-waste/food-waste']">Дневные траты</a>
+          <a class="nav-link h4" [routerLink]="['./daily-waste/food-waste']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Дневные траты</a>
         </li>
       </ul>
     </div>

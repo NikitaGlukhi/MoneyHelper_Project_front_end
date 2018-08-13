@@ -1,0 +1,19 @@
+<h1>&nbsp;</h1>
+<div class="card" style="max-width: 50rem; width: 1000px; height: 500px; margin: 0 auto">
+  <div class="card-header" style="text-align: center">
+    <h2>Распределение суммы по категориям</h2>
+    <h3>Исходная сумма: {{amount}} грн</h3>
+  </div>
+  <div class="card-body">
+    <form  [formGroup]="form" (ngSubmit)="onCalculate(model)">
+      <formly-form [form]="form" [fields]="fields" [model]="model">
+        <h6>Еда: {{this.food}}</h6>
+        <h6>Бытовуха: {{this.communal}}</h6>
+        <h6>Транспорт: {{this.transport}}</h6>
+        <h6>Прочее *</h6>
+        <h6>{{this.model.other}}</h6>
+        <button class="btn btn-primary pull-right btn-lg" type="submit">Подтвердить</button>
+      </formly-form>
+    </form>
+  </div>
+</div>

@@ -6,11 +6,13 @@ import { CreateDataComponent } from './add-date-money/create-data/create-data.co
 import { UpdateDataComponent } from './add-date-money/update-data/update-data.component';
 import { AddDateMoneyComponent } from './add-date-money/add-date-money.component';
 import { AllocateDataComponent } from './allocate-data/allocate-data.component';
+import { AllocateDataStandartComponent } from './allocate-data/allocate-data(standart)/allocate-data-standart.component';
 import { DailyWasteComponent } from './daily-waste/daily-waste.component';
 import { FoodWasteComponent } from './daily-waste/food-waste/food-waste.component';
 import { CommunalWasteComponent } from './daily-waste/communal-waste/communal-waste.component';
-import { TransportWasteComponent } from "./daily-waste/transport-waste/transport-waste.component";
-import { OtherWasteComponent } from "./daily-waste/other-waste/other-waste.component";
+import { TransportWasteComponent } from './daily-waste/transport-waste/transport-waste.component';
+import { OtherWasteComponent } from './daily-waste/other-waste/other-waste.component';
+import { AllocateDataPercentageComponent } from './allocate-data/allocate-data(percentage)/allocate-data-percentage.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'main-page' },
@@ -24,7 +26,14 @@ export const routes: Routes = [
       { path: 'update', component: UpdateDataComponent }
     ]
   },
-  { path: 'allocate-data', component: AllocateDataComponent },
+  { path: 'allocate-data',
+    component: AllocateDataComponent,
+    children:
+    [
+      { path: 'standard', component: AllocateDataStandartComponent },
+      { path: 'percentage', component: AllocateDataPercentageComponent }
+    ]
+  },
   {
     path: 'daily-waste',
     component: DailyWasteComponent,
