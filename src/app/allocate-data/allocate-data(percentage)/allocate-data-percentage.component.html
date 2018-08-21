@@ -12,7 +12,7 @@
         <h6>Транспорт: {{this.transport}}</h6>
         <h6>Прочее *</h6>
         <h6>{{this.model.other}}</h6>
-        <button class="btn btn-primary pull-right btn-lg" type="submit">Подтвердить</button>
+        <button class="btn btn-primary pull-right btn-lg" [disabled]="!form.valid" type="submit">Подтвердить</button>
       </formly-form>
     </form>
   </div>

@@ -2,9 +2,12 @@
   <div class="card-header" style="text-align: center"><h2>Задать дату и исходную сумму</h2></div>
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
-      <formly-form [form]="form" [fields]="fields" [model]="model">
-        <button class="btn btn-primary pull-right btn-lg" type="submit">Подтвердить</button>
-      </formly-form>
+      <div class="form-group col-md-12">
+        <formly-form [form]="form" [fields]="fields" [options]="options" [model]="model">
+          <button type="button" class="btn btn-danger btn-lg" (click)="options.resetModel()">Очистить</button>
+          <button class="btn btn-primary pull-right btn-lg" [disabled]="!form.valid"  type="submit">Подтвердить</button>
+        </formly-form>
+      </div>
     </form>
   </div>
 </div>

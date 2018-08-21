@@ -24,11 +24,10 @@ export class FoodWasteComponent implements OnInit {
   fields: FormlyFieldConfig[] = [
     {
       key: 'daily_waste',
-      type: 'input',
+      type: 'add-amount',
       templateOptions: {
-        type: 'number',
-        label: 'Введит сумму',
-        placeholder: 'Скольво вы потратили за сегодня?',
+        label: 'Введите сумму',
+        placeholder: 'Сколько вы потратили за сегодня?',
         required: true
       }
     }

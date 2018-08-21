@@ -28,6 +28,9 @@ import { OtherWasteComponent } from './daily-waste/other-waste/other-waste.compo
 import { AllocateDataComponent } from './allocate-data/allocate-data.component';
 import { AllocateDataPercentageComponent } from './allocate-data/allocate-data(percentage)/allocate-data-percentage.component';
 import { NotFoundComponent } from './not.found.component/not.found.component';
+import { AddFieldNumberComponent } from './custom-fields/add-field-number/add-field-number.component';
+import { AddFieldDateComponent } from './custom-fields/add-field-date/add-field-date.component';
+import { AddTelephoneFieldComponent } from './custom-fields/add-telephone-field/add-telephone-field.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { NotFoundComponent } from './not.found.component/not.found.component';
     OtherWasteComponent,
     AllocateDataComponent,
     AllocateDataPercentageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AddFieldNumberComponent,
+    AddFieldDateComponent,
+    AddTelephoneFieldComponent
   ],
   imports: [
     BrowserModule,
@@ -54,8 +60,13 @@ import { NotFoundComponent } from './not.found.component/not.found.component';
     TooltipModule.forRoot(),
     ReactiveFormsModule,
     FormlyModule.forRoot({
+      types: [
+        { name: 'add-amount', component: AddFieldNumberComponent, extends: 'input' },
+        { name: 'add-date', component: AddFieldDateComponent, extends: 'input' },
+        { name: 'add-phone-number', component: AddTelephoneFieldComponent, extends: 'input' }
+      ],
       validationMessages: [
-        { name: 'required', message: 'This field is required' }
+        { name: 'required', message: 'This field is required. Please, enter the required data' }
       ]
     }),
     FormlyBootstrapModule,

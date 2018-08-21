@@ -5,6 +5,8 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
+const url = 'http://localhost:3000'
+
 @Injectable()
 export class AppSetInitialDataService {
 
@@ -22,10 +24,9 @@ export class AppSetInitialDataService {
   }
 
   setInitialData(data: {all_date: string, all_amount: number}): Observable<any> {
-    return this.http.post('/initial-data/set-initial-data', data)
+    return this.http.post(`${url}/initial-data/set-initial-data`, data)
       .pipe(
         catchError(this.handleError)
       )
   }
-
 }

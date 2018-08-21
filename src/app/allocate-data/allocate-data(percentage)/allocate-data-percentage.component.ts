@@ -23,9 +23,8 @@ export class AllocateDataPercentageComponent implements OnInit {
   fields: FormlyFieldConfig[] = [
     {
       key: 'food_per',
-      type: 'input',
+      type: 'add-amount',
       templateOptions: {
-        type: 'number',
         label: 'Еда',
         placeholder: 'Еда(%)',
         required: true
@@ -33,9 +32,8 @@ export class AllocateDataPercentageComponent implements OnInit {
     },
     {
       key: 'communal_per',
-      type: 'input',
+      type: 'add-amount',
       templateOptions: {
-        type: 'number',
         label: 'Бытовуха',
         placeholder: 'Бытовуха(%)',
         required: true
@@ -44,17 +42,15 @@ export class AllocateDataPercentageComponent implements OnInit {
     },
     {
       key: 'transport_per',
-      type: 'input',
+      type: 'add-amount',
       templateOptions: {
-        type: 'number',
         label: 'Транспорт',
         placeholder: 'Транспорт(%)',
         required: true
       },
       hideExpression: '!model.communal_per'
     }
-    ]
-
+  ]
 
   constructor(
     private router: Router,
@@ -69,11 +65,14 @@ export class AllocateDataPercentageComponent implements OnInit {
   ngOnInit() {}
 
   onCalculate() {
-    if(this.model.food_per > 100 || this.model.communal_per > 100 || this.model.transport_per > 100) {
-      alert('Вы не можете взять больше 100% от исходной суммы');
-    } else if(this.model.food_per < 0 || this.model.communal_per < 0 || this.model.transport_per < 0) {
-      alert('Вы не можете взять меньше 0% от исходной суммы');
+    if (!this.form.valid) {
+      return false
     } else {
+      if (this.model.food_per > 100 || this.model.communal_per > 100 || this.model.transport_per > 100) {
+        alert('Вы не можете взять больше 100% от исходной суммы');
+      } else if (this.model.food_per < 0 || this.model.communal_per < 0 || this.model.transport_per < 0) {
+        alert('Вы не можете взять меньше 0% от исходной суммы');
+      } else {
         this.food_c = (this.amount * this.model.food_per) / 100;
         this.food = Math.round(this.food_c);
         this.communal_c = (this.amount * this.model.communal_per) / 100;
@@ -81,10 +80,10 @@ export class AllocateDataPercentageComponent implements OnInit {
         this.transport_c = (this.amount * this.model.transport_per) / 100;
         this.transport = Math.round(this.transport_c);
         this.model.other = this.amount - (this.food + this.communal + this.transport)
-      if(this.model.other < 0) {
+        if (this.model.other < 0) {
           alert('Превышена заданная сумма проверьте введённые Вами данные');
           return false;
-      } else {
+        } else {
           this.dis.addFoodAmount({all_food_amount: this.food, all_remainder: this.food})
             .subscribe(res => {
               console.log('Food amount: ', res);
@@ -110,19 +109,19 @@ export class AllocateDataPercentageComponent implements OnInit {
               console.error(err);
             });
           setTimeout(() => this.dis.addDistributedData({
-              initial_id: this.id,
-              all_food: this.food,
-              all_communal: this.communal,
-              all_transport: this.transport,
-              all_other: this.model.other
-            }).subscribe(res => {
-              console.log('Distributed data: ', res);
-              this.router.navigateByUrl('/main-page');
+            initial_id: this.id,
+            all_food: this.food,
+            all_communal: this.communal,
+            all_transport: this.transport,
+            all_other: this.model.other
+          }).subscribe(res => {
+            console.log('Distributed data: ', res);
+            this.router.navigateByUrl('/main-page');
           }, err => {
-              console.error(err);
+            console.error(err);
           }), 5000);
+        }
       }
     }
   }
-
 }

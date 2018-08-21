@@ -2,42 +2,44 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppSetInitialDataService } from '../../services/app.set_initial_data.service';
 import { AppTransferDataService } from '../../services/app.transfer-data.service';
-import { padNumber, toNumber } from "ngx-bootstrap/timepicker/timepicker.utils";
-import { FormGroup } from "@angular/forms";
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormControl, FormGroup, ValidationErrors } from "@angular/forms";
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-create-data',
   templateUrl: './create-data.component.html',
   styleUrls: ['./create-data.component.css']
 })
+
 export class CreateDataComponent implements OnInit {
 
   form = new FormGroup({});
   model = { amount: null, date: null };
-  fields: FormlyFieldConfig[] = [{
-    key: 'amount',
-    type: 'input',
-    templateOptions: {
-      type: 'number',
-      label: 'Введите исходную сумму',
-      placeholder: 'Исходная сумма(грн)',
-      required: true
-    }
-  },
+  options: FormlyFormOptions = {};
+  fields: Array<FormlyFieldConfig> = [
+    {
+      key: 'amount',
+      type: 'add-amount',
+      templateOptions: {
+        label: 'Введите исходную сумму',
+        placeholder: 'Исходная сумма(грн)',
+        required: true
+      }
+    },
     {
       key: 'date',
-      type: 'input',
+      type: 'add-date',
+      className: 'mb-3',
       templateOptions: {
-        type: 'date',
         label: 'Задать исходную дату',
-        description: 'ВАЖНО! Доступ у этому полю становится доступен после заполнения предыдущего поля',
+        placeholder: 'Задать дату',
         required: true
       },
       expressionProperties: {
         'templateOptions.disabled': '!model.amount'
       }
-    }]
+    }
+  ]
 
   constructor
   (
@@ -51,8 +53,7 @@ export class CreateDataComponent implements OnInit {
 
 
   onSubmit(model) {
-    if(isNaN(this.model.amount)) {
-     alert('Необходимо ввести число!');
+    if(!this.form.valid) {
      return false;
     } else {
       if (this.model.amount < 0) {

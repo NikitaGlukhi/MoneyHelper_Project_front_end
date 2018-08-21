@@ -5,6 +5,8 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
+const url = 'http://localhost:3000'
+
 @Injectable()
 export class AppDailyWasteService {
 
@@ -23,25 +25,25 @@ export class AppDailyWasteService {
   }
 
   getDailyWasteFoodData(): Observable<any> {
-    return this.http.get('/initial-data/get-daily-waste-food').pipe(
+    return this.http.get(`${url}/initial-data/get-daily-waste-food`).pipe(
       catchError(this.handleError)
     )
   }
 
   getDailyWasteCommunalData(): Observable<any> {
-    return this.http.get('/initial-data/get-daily-waste-communal').pipe(
+    return this.http.get(`${url}/initial-data/get-daily-waste-communal`).pipe(
       catchError(this.handleError)
     )
   }
 
   getDailyWasteTrasportData(): Observable<any> {
-    return this.http.get('/initial-data/get-daily-waste-transport').pipe(
+    return this.http.get(`${url}/initial-data/get-daily-waste-transport`).pipe(
       catchError(this.handleError)
     )
   }
 
   getDailyWasteOtherData(): Observable<any> {
-    return this.http.get('/initial-data/get-daily-waste-other').pipe(
+    return this.http.get(`${url}/initial-data/get-daily-waste-other`).pipe(
       catchError(this.handleError)
     )
   }
