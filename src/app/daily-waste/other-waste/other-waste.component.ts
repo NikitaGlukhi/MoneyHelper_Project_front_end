@@ -13,11 +13,6 @@ export class OtherWasteComponent implements OnInit {
 
   form = new FormGroup({});
   model = { daily_waste: null };
-  other_amount: number;
-  total_waste: number;
-  upd_total_waste: number;
-  remainder: number;
-  upd_remainder: number;
   fields: FormlyFieldConfig[] = [
     {
       key: 'daily_waste',
@@ -28,7 +23,14 @@ export class OtherWasteComponent implements OnInit {
         required: true
       }
     }
-    ]
+  ]
+
+  other_amount: number;
+  total_waste: number;
+  upd_total_waste: number;
+  remainder: number;
+  upd_remainder: number;
+  title: string
 
   constructor(private router: Router, private route: ActivatedRoute, private dis: AppDistributionDataService) {  }
 
@@ -41,7 +43,20 @@ export class OtherWasteComponent implements OnInit {
         console.log(res);
       }, err => {
         console.error(err);
-      })
+      });
+    this.check();
+  }
+
+  check() {
+    this.form.valueChanges.subscribe(val => {
+      this.model = val;
+
+      if(val.daily_waste > this.remainder) {
+        return this.title = 'Вы не можете потратить больше оставшейся суммы'
+      }
+
+      return this.title = ''
+    })
   }
 
   onSubmit() {

@@ -16,9 +16,7 @@ import { AppDailyWasteService } from './services/app.daily-waste.service';
 import { routes } from './app.routing';
 import { AppComponent } from './app.component/app.component';
 import { AppMainPageComponent } from './mainpage/app.mainpage.component';
-import { CreateDataComponent } from './add-date-money/create-data/create-data.component';
-import { UpdateDataComponent } from './add-date-money/update-data/update-data.component';
-import { AddDateMoneyComponent } from './add-date-money/add-date-money.component';
+import { CreateDataComponent } from './create-data/create-data.component';
 import { AllocateDataStandartComponent } from './allocate-data/allocate-data(standart)/allocate-data-standart.component';
 import { DailyWasteComponent } from './daily-waste/daily-waste.component';
 import { FoodWasteComponent } from './daily-waste/food-waste/food-waste.component';
@@ -37,8 +35,6 @@ import { AddTelephoneFieldComponent } from './custom-fields/add-telephone-field/
     AppComponent,
     AppMainPageComponent,
     CreateDataComponent,
-    UpdateDataComponent,
-    AddDateMoneyComponent,
     AllocateDataStandartComponent,
     DailyWasteComponent,
     FoodWasteComponent,

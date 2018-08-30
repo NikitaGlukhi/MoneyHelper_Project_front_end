@@ -1,4 +1,12 @@
 <h1>&nbsp;</h1>
+<div class="alert alert-danger" *ngIf="title" style="text-align: center; width: 40%; margin-left: auto; margin-right: auto" role="alert">
+  <i  class="fa fa fa-exclamation-triangle"></i>
+  {{title}}
+</div>
+<div class="alert alert-danger" *ngIf="title1" style="text-align: center; width: 40%; margin-left: auto; margin-right: auto" role="alert">
+  <i  class="fa fa fa-exclamation-triangle"></i>
+  {{title1}}
+</div>
 <div class="card" style="max-width: 50rem; width: 1000px; height: 500px; margin: 0 auto">
   <div class="card-header" style="text-align: center">
     <h2>Распределение суммы по категориям</h2>
@@ -8,8 +16,14 @@
    <form [formGroup]="form" (ngSubmit)="onCalculate()">
      <formly-form [form]="form" [model]="model" [fields]="fields">
        <h6>Прочее *</h6>
-       <h5>{{ this.model.other }}</h5>
-       <button class="btn btn-primary pull-right btn-lg" [disabled]="!form.valid" type="submit">Подтвердить</button>
+       <h5>{{ other }}</h5>
+       <button class="btn btn-primary pull-right btn-lg"
+               [disabled]="!form.valid ||
+                           (model.food + model.communal + model.transport) > amount ||
+                           model.food < 0 ||
+                           model.communal < 0 ||
+                           model.transport < 0"
+               type="submit">Подтвердить</button>
      </formly-form>
    </form>
   </div>

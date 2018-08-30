@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppSetInitialDataService } from '../../services/app.set_initial_data.service';
-import { AppTransferDataService } from '../../services/app.transfer-data.service';
+import { AppSetInitialDataService } from '../services/app.set_initial_data.service';
+import { AppTransferDataService } from '../services/app.transfer-data.service';
 import { FormControl, FormGroup, ValidationErrors } from "@angular/forms";
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
@@ -60,6 +60,8 @@ export class CreateDataComponent implements OnInit {
         alert('Ошибка! Введенная сумма не может быть ментше 0.');
         return false;
       } else {
+        this.setData.setInitialAmount({initial_amount: this.model.amount})
+          .subscribe(res => {})
         this.setData.setInitialData({all_date: this.model.date, all_amount: this.model.amount})
           .subscribe(res => {
             this.setTransfer.setData(res);

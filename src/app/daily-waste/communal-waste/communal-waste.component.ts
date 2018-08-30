@@ -13,11 +13,6 @@ export class CommunalWasteComponent implements OnInit {
 
   form = new FormGroup({});
   model = { daily_waste: null };
-  communal_amount: number;
-  total_waste: number;
-  upd_total_waste: number;
-  remainder: number;
-  upd_remainder: number;
   fields: FormlyFieldConfig[] = [
     {
       key: 'daily_waste',
@@ -28,7 +23,14 @@ export class CommunalWasteComponent implements OnInit {
         required: true
       }
     }
-    ]
+  ]
+
+  communal_amount: number;
+  total_waste: number;
+  upd_total_waste: number;
+  remainder: number;
+  upd_remainder: number;
+  title: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private dis: AppDistributionDataService) { }
 
@@ -42,6 +44,19 @@ export class CommunalWasteComponent implements OnInit {
       },err => {
         console.error(err);
       })
+    this.check()
+  }
+
+  check() {
+    this.form.valueChanges.subscribe(val => {
+      this.model = val;
+
+      if (val.daily_waste > this.remainder) {
+        return this.title = 'Вы не можете потратить больше оставшейся суммы';
+      }
+
+      return this.title = ''
+    })
   }
 
   onSubmit(model) {
@@ -53,7 +68,6 @@ export class CommunalWasteComponent implements OnInit {
       all_upd_communal_total_waste: this.upd_total_waste,
       all_upd_communal_remainder: this.upd_remainder})
       .subscribe(res => {
-        alert('Успех!');
         console.log(res);
         this.router.navigateByUrl('/daily-waste/transport-waste');
       }, err => {

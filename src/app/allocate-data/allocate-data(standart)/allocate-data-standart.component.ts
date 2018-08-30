@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppTransferDataService } from '../../services/app.transfer-data.service';
+import { AppSetInitialDataService } from '../../services/app.set_initial_data.service';
 import { AppDistributionDataService } from '../../services/app.distribution_data.service';
 import { AllocateDataModel } from '../../models/allocate_data_model';
 import { FormlyFieldConfig } from '@ngx-formly/core';
@@ -15,7 +16,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 export class AllocateDataStandartComponent implements OnInit {
 
   form = new FormGroup({});
-  model = { food: null, communal: null, transport: null, other: null };
+  model = { food: null, communal: null, transport: null };
   fields: FormlyFieldConfig[] = [
     {
       key: 'food',
@@ -33,8 +34,7 @@ export class AllocateDataStandartComponent implements OnInit {
         label: 'Бытовуха',
         placeholder: 'Бытовуха(грн)',
         required: true
-      },
-      hideExpression: '!model.food'
+      }
     },
     {
       key: 'transport',
@@ -43,38 +43,69 @@ export class AllocateDataStandartComponent implements OnInit {
         label: 'Транспорт',
         placeholder: 'Транспорт(грн)',
         required: true,
-      },
-      hideExpression: '!model.communal'
+      }
     }
     ]
   allocate: any = {};
-
+  amount: number;
+  title: string;
+  title1: string;
+  other: number;
   constructor
   (
     private route: ActivatedRoute,
     private router: Router,
     private setTransfer: AppTransferDataService,
-    private dis: AppDistributionDataService
+    private dis: AppDistributionDataService,
+    private initial: AppSetInitialDataService
   ) { }
 
   data = this.setTransfer.getData();
-  amount = this.setTransfer.getAmountData();
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initial.getInitialAmount()
+      .subscribe(res => {
+        this.amount = res[0].amount
+      }, err => {
+        console.error(err)
+      })
+    this.check();
+    this.check1();
+  }
+
+  check() {
+    this.form.valueChanges.subscribe(val => {
+      this.model = val;
+      let checkData = val.food + val.communal + val.transport;
+
+      if (checkData > this.amount) {
+        return this.title = 'Превышение заданной суммы, проверьте данные'
+      }
+
+      return this.title = ''
+
+    })
+  }
+
+  check1() {
+    this.form.valueChanges.subscribe(val => {
+      this.model = val;
+      let checkSpecialData = val.food < 0 || val.communal < 0 || val.transport < 0;
+
+      if(checkSpecialData) {
+        return this.title1 = 'Отрицательная сумма! Проверьте введенные данные.'
+      }
+
+      return this.title1 = ''
+    })
+  }
 
   onCalculate() {
-    if (!this.form.valid) {
-      return false;
-    } else {
-      this.model.other = this.amount - (this.model.food + this.model.communal + this.model.transport);
-      if ((this.model.food + this.model.communal + this.model.transport) > this.amount) {
-        alert('Превышение заданной суммы. Введите данные заново');
-        return false;
-      } else if (this.model.food < 0 || this.model.communal < 0 || this.model.transport < 0) {
-        alert('Невозможно ввести указанные данные(отрицательные числа). Введите данные заново');
-        return true;
-      } else {
-        this.dis.addFoodAmount({all_food_amount: this.model.food, all_remainder: this.model.food})
+    let calculate_sum = this.model.food + this.model.communal + this.model.transport;
+    this.other = this.amount - calculate_sum;
+        this.dis.addFoodAmount({
+          all_food_amount: this.model.food,
+          all_remainder: this.model.food})
           .subscribe(res => {
             console.log('Food amount: ', res);
           }, err => {
@@ -98,7 +129,9 @@ export class AllocateDataStandartComponent implements OnInit {
           }, err => {
             console.error(err);
           });
-        this.dis.addOtherAmount({all_other_amount: this.model.other, all_other_reminder: this.model.other})
+        this.dis.addOtherAmount({
+          all_other_amount: this.other,
+          all_other_reminder: this.other})
           .subscribe(res => {
             console.log('Other amount: ', res);
           }, err => {
@@ -109,7 +142,7 @@ export class AllocateDataStandartComponent implements OnInit {
           all_food: this.model.food,
           all_communal: this.model.communal,
           all_transport: this.model.transport,
-          all_other: this.model.other
+          all_other: this.other
         }).subscribe(res => {
           this.allocate = res;
           console.log('Returned: ', this.allocate);
@@ -118,6 +151,4 @@ export class AllocateDataStandartComponent implements OnInit {
           console.error(err);
         }), 5000);
       }
-    }
-  }
 }

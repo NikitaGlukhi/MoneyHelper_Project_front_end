@@ -6,7 +6,11 @@
         <h2>В наличии: {{ transport_amount }} грн.</h2>
         <h2>Всего потрачено: {{ total_waste }} грн.</h2>
         <h2>Остаток: {{ remainder }} грн.</h2>
-        <button class="btn btn-primary" type="submit">Подтвердить</button>
+        <button class="btn btn-primary btn-lg" [disabled]="!form.valid || model.daily_waste > remainder" type="submit">Подтвердить</button>
+        <div class="alert alert-danger" *ngIf="title" style="text-align: center; width: 60%; margin-left: auto; margin-right: auto" role="alert">
+          <i  class="fa fa fa-exclamation-triangle"></i>
+          {{title}}
+        </div>
       </formly-form>
     </form>
   </div>

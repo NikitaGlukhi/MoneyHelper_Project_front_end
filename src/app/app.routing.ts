@@ -2,9 +2,7 @@ import { Routes } from '@angular/router';
 
 import { AppMainPageComponent } from './mainpage/app.mainpage.component';
 import { NotFoundComponent } from './not.found.component/not.found.component';
-import { CreateDataComponent } from './add-date-money/create-data/create-data.component';
-import { UpdateDataComponent } from './add-date-money/update-data/update-data.component';
-import { AddDateMoneyComponent } from './add-date-money/add-date-money.component';
+import { CreateDataComponent } from './create-data/create-data.component';
 import { AllocateDataComponent } from './allocate-data/allocate-data.component';
 import { AllocateDataStandartComponent } from './allocate-data/allocate-data(standart)/allocate-data-standart.component';
 import { DailyWasteComponent } from './daily-waste/daily-waste.component';
@@ -19,12 +17,7 @@ export const routes: Routes = [
   { path: 'main-page', component: AppMainPageComponent },
   {
     path: 'add-date-money',
-    component: AddDateMoneyComponent,
-    children:
-    [
-      { path: 'add', component: CreateDataComponent },
-      { path: 'update', component: UpdateDataComponent }
-    ]
+    component: CreateDataComponent,
   },
   { path: 'allocate-data',
     component: AllocateDataComponent,

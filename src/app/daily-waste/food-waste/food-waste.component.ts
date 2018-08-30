@@ -16,11 +16,6 @@ export class FoodWasteComponent implements OnInit {
 
   form = new FormGroup({});
   model = { daily_waste: null };
-  food_amount: number;
-  total_waste: number;
-  upd_total_waste: number;
-  remainder: number;
-  upd_remainder: number;
   fields: FormlyFieldConfig[] = [
     {
       key: 'daily_waste',
@@ -31,7 +26,14 @@ export class FoodWasteComponent implements OnInit {
         required: true
       }
     }
-    ]
+  ]
+
+  food_amount: number;
+  total_waste: number;
+  upd_total_waste: number;
+  remainder: number;
+  upd_remainder: number;
+  title: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private dis: AppDistributionDataService) { }
 
@@ -42,15 +44,32 @@ export class FoodWasteComponent implements OnInit {
         this.total_waste = res[0].total_waste;
         this.remainder = res[0].remainder;
       })
+    this.check();
+  }
+
+  check() {
+    this.form.valueChanges.subscribe(val => {
+      this.model = val;
+
+      if (val.daily_waste > this.remainder) {
+        return this.title = 'Вы не можете потратить больше оставшейся суммы';
+      }
+
+      return this.title = '';
+
+    })
   }
 
   onSubmit(model) {
     this.upd_total_waste = this.total_waste + this.model.daily_waste;
     this.upd_remainder = this.remainder - this.model.daily_waste;
-    this.dis.addDailyWasteFoodChanges({all_upd_food_amount: this.food_amount, all_upd_daily_waste: this.model.daily_waste, all_upd_total_waste: this.upd_total_waste, all_upd_remainder: this.upd_remainder
+    this.dis.addDailyWasteFoodChanges({
+      all_upd_food_amount: this.food_amount,
+      all_upd_daily_waste: this.model.daily_waste,
+      all_upd_total_waste: this.upd_total_waste,
+      all_upd_remainder: this.upd_remainder
     })
       .subscribe(res => {
-        alert('Успех!');
         this.router.navigateByUrl('/daily-waste/communal-waste');
         console.log(res);
       }, err => {

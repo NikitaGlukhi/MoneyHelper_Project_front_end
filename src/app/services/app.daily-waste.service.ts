@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
 const url = 'http://localhost:3000'
+// var url = 'http://01d0f903.ngrok.io'
 
 @Injectable()
 export class AppDailyWasteService {

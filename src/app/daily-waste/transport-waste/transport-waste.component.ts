@@ -13,11 +13,6 @@ export class TransportWasteComponent implements OnInit {
 
   form = new FormGroup({});
   model = { daily_waste: null };
-  transport_amount: number;
-  total_waste: number;
-  upd_total_waste: number;
-  remainder: number;
-  upd_remainder: number;
   fields: FormlyFieldConfig[] = [
     {
       key: 'daily_waste',
@@ -30,6 +25,13 @@ export class TransportWasteComponent implements OnInit {
     }
     ]
 
+  transport_amount: number;
+  total_waste: number;
+  upd_total_waste: number;
+  remainder: number;
+  upd_remainder: number;
+  title: string;
+
   constructor(private router: Router, private route: ActivatedRoute, private dis: AppDistributionDataService) { }
 
   ngOnInit() {
@@ -41,7 +43,20 @@ export class TransportWasteComponent implements OnInit {
         console.log('Transport: ', res)
       }, err => {
         console.error(err);
-      })
+      });
+    this.check()
+  }
+
+  check() {
+    this.form.valueChanges.subscribe(val => {
+      this.model = val;
+
+      if(val.daily_waste > this.remainder) {
+        return this.title = 'Вы не можете потратить больше заданной суммы'
+      }
+
+      return this.title = ''
+    })
   }
 
   onSubmit(model) {
@@ -53,7 +68,6 @@ export class TransportWasteComponent implements OnInit {
       all_upd_transport_total_waste: this.upd_total_waste,
       all_upd_transport_remainder: this.upd_remainder})
       .subscribe(res => {
-      alert('Успех!');
       console.log(res);
       this.router.navigateByUrl('/daily-waste/other-waste');
     }, err => {
