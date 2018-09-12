@@ -24,7 +24,7 @@ export class AllocateDataStandartComponent implements OnInit {
       templateOptions: {
         label: 'Еда',
         placeholder: 'Еда(грн)',
-        required: true,
+        required: true
       }
     },
     {
@@ -45,12 +45,14 @@ export class AllocateDataStandartComponent implements OnInit {
         required: true,
       }
     }
-    ]
+  ]
   allocate: any = {};
-  amount: number;
+  current_amount: number;
   title: string;
   title1: string;
   other: number;
+  remainder_amount: number = 0;
+
   constructor
   (
     private route: ActivatedRoute,
@@ -65,12 +67,24 @@ export class AllocateDataStandartComponent implements OnInit {
   ngOnInit() {
     this.initial.getInitialAmount()
       .subscribe(res => {
-        this.amount = res[0].amount
+        this.current_amount = res[0].amount;
+        this.other = this.current_amount;
       }, err => {
         console.error(err)
-      })
+      });
+    this.calculateRemainderAmount();
     this.check();
     this.check1();
+  }
+
+  calculateRemainderAmount() {
+    this.form.valueChanges.subscribe(val => {
+      this.model = val;
+
+      let AllSum = val.food + val.communal + val.transport;
+
+      return this.remainder_amount = this.current_amount - AllSum;
+    })
   }
 
   check() {
@@ -78,19 +92,19 @@ export class AllocateDataStandartComponent implements OnInit {
       this.model = val;
       let checkData = val.food + val.communal + val.transport;
 
-      if (checkData > this.amount) {
+      if (checkData > this.current_amount) {
         return this.title = 'Превышение заданной суммы, проверьте данные'
       }
 
       return this.title = ''
 
     })
-  }
+  };
 
   check1() {
     this.form.valueChanges.subscribe(val => {
       this.model = val;
-      let checkSpecialData = val.food < 0 || val.communal < 0 || val.transport < 0;
+      const checkSpecialData = val.food < 0 || val.communal < 0 || val.transport < 0;
 
       if(checkSpecialData) {
         return this.title1 = 'Отрицательная сумма! Проверьте введенные данные.'
@@ -101,8 +115,14 @@ export class AllocateDataStandartComponent implements OnInit {
   }
 
   onCalculate() {
+    this.dis.setAfterDistributedData({after_amount: 0})
+      .subscribe(res => {
+        console.log(res);
+      }, err => {
+        console.error(err);
+      });
     let calculate_sum = this.model.food + this.model.communal + this.model.transport;
-    this.other = this.amount - calculate_sum;
+    this.other = this.current_amount - calculate_sum;
         this.dis.addFoodAmount({
           all_food_amount: this.model.food,
           all_remainder: this.model.food})
@@ -137,18 +157,19 @@ export class AllocateDataStandartComponent implements OnInit {
           }, err => {
             console.error(err);
           })
-        setTimeout(() => this.dis.addDistributedData({
+        this.dis.addDistributedData({
           initial_id: this.data,
           all_food: this.model.food,
           all_communal: this.model.communal,
           all_transport: this.model.transport,
           all_other: this.other
         }).subscribe(res => {
+          console.log('id: ', res.initial_id)
           this.allocate = res;
           console.log('Returned: ', this.allocate);
           this.router.navigateByUrl('/main-page');
         }, err => {
           console.error(err);
-        }), 5000);
+        })
       }
 }

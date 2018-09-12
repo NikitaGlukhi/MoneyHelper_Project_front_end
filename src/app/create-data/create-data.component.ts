@@ -51,17 +51,17 @@ export class CreateDataComponent implements OnInit {
 
   ngOnInit() {}
 
-
   onSubmit(model) {
-    if(!this.form.valid) {
-     return false;
-    } else {
       if (this.model.amount < 0) {
         alert('Ошибка! Введенная сумма не может быть ментше 0.');
         return false;
       } else {
         this.setData.setInitialAmount({initial_amount: this.model.amount})
-          .subscribe(res => {})
+          .subscribe(res => {
+            console.log('Initial amount: ', res);
+          }, err => {
+            console.error(err);
+          })
         this.setData.setInitialData({all_date: this.model.date, all_amount: this.model.amount})
           .subscribe(res => {
             this.setTransfer.setData(res);
@@ -72,6 +72,5 @@ export class CreateDataComponent implements OnInit {
           })
       }
     }
-  }
 
 }
